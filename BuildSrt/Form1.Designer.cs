@@ -45,7 +45,6 @@ partial class Form1
         // 
         // openFileDialog
         // 
-        openFileDialog.FileName = "openFileDialog";
         openFileDialog.Filter = "视频文件|*.mp4;*.avi;*.mkv;*.mov;*.wmv|所有文件|*.*";
         openFileDialog.RestoreDirectory = true;
         openFileDialog.Title = "选择视频文件";
