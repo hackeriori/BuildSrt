@@ -2,7 +2,7 @@
 
 public abstract class GetSrt
 {
-    public static async Task<bool> GetSrtFromWavAsync(string moviePath)
+    public static async Task<bool> GetSrtFromWavAsync(string wavPath)
     {
         return true;
     }
