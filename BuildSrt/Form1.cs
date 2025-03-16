@@ -14,6 +14,18 @@ public partial class Form1 : Form
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appSettings.json", optional: false);
         _configuration = builder.Build();
+        // 获取模型列表
+        var whisperPath = _configuration["AppSettings:whisperPath"];
+        var directory = Path.Combine(Path.GetDirectoryName(whisperPath), "models");
+        if (!Directory.Exists(directory)) return;
+        var files = Directory.GetFiles(directory, "*.bin");
+        foreach (var file in files)
+        {
+            comboBoxModel.Items.Add(Path.GetFileName(file));
+        }
+
+        // 将名称为ggml-large-v3.bin的模型设置为默认值
+        comboBoxModel.SelectedItem = comboBoxModel.Items.Cast<string>().FirstOrDefault(x => x == "ggml-large-v3.bin");
     }
 
     private async void buttonBuildWav_Click(object sender, EventArgs e)
@@ -22,6 +34,12 @@ public partial class Form1 : Form
         openFileDialog.Title = "选择视频文件";
         if (openFileDialog.ShowDialog() != DialogResult.OK) return;
         var ffmpegPath = _configuration["AppSettings:ffmpegPath"];
+        if (string.IsNullOrEmpty(ffmpegPath) || !File.Exists(ffmpegPath))
+        {
+            MessageBox.Show("未找到ffmpeg");
+            return;
+        }
+
         _wavPath = await BuildWav.BuildWavFromMovieAsync(openFileDialog.FileName, ffmpegPath);
     }
 
@@ -39,5 +57,55 @@ public partial class Form1 : Form
         if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
         ConvertToScSrt.Convert(folderBrowserDialog.SelectedPath);
         MessageBox.Show("转换完成");
+    }
+
+    private void buttonGetSrt_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(_wavPath) || !File.Exists(_wavPath))
+        {
+            MessageBox.Show("未找到对应的音频文件");
+            return;
+        }
+
+        var whisperPath = _configuration["AppSettings:whisperPath"];
+        if (string.IsNullOrEmpty(whisperPath) || !File.Exists(whisperPath))
+        {
+            MessageBox.Show("未找到whisper.cpp");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(comboBoxModel.SelectedItem as string))
+        {
+            MessageBox.Show("未选择模型");
+            return;
+        }
+
+        var modelPath = Path.Combine(Path.GetDirectoryName(whisperPath)!, "models",
+            (comboBoxModel.SelectedItem as string)!);
+
+        int? offsetTime = null;
+        if (numericUpDownStartHour.Value != 0 || numericUpDownStartMinute.Value != 0 ||
+            numericUpDownStartSecond.Value != 0)
+            offsetTime = ((int)numericUpDownStartHour.Value * 3600 + (int)numericUpDownStartMinute.Value * 60 +
+                          (int)numericUpDownStartSecond.Value) * 1000;
+        int? duration = null;
+        if (numericUpDownEndHour.Value != 0 || numericUpDownEndMinute.Value != 0 || numericUpDownEndSecond.Value != 0)
+        {
+            duration = ((int)numericUpDownEndHour.Value * 3600 + (int)numericUpDownEndMinute.Value * 60 +
+                        (int)numericUpDownEndSecond.Value) * 1000;
+            if (offsetTime != null)
+                duration -= offsetTime;
+        }
+
+        GetSrt.GetSrtFromWavAsync(_wavPath, whisperPath, modelPath, numericUpDownET.Value,
+            numericUpDownTPI.Value, offsetTime, duration, textBoxLG.Text);
+    }
+
+    private void buttonSelectWav_Click(object sender, EventArgs e)
+    {
+        openFileDialog.Filter = "音频文件|*.wav";
+        openFileDialog.Title = "选择音频文件";
+        if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+        _wavPath = openFileDialog.FileName;
     }
 }

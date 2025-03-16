@@ -10,7 +10,7 @@ public abstract class BuildWav
     /// <param name="moviePath">视频文件路径</param>
     /// <param name="ffmpegPath">ffmpeg路径</param>
     /// <returns>返回是否返回成功</returns>
-    public static async Task<string?> BuildWavFromMovieAsync(string moviePath, string? ffmpegPath)
+    public static async Task<string?> BuildWavFromMovieAsync(string moviePath, string ffmpegPath)
     {
         var directory = Path.GetDirectoryName(moviePath);
         if (string.IsNullOrEmpty(directory) || string.IsNullOrEmpty(ffmpegPath))
