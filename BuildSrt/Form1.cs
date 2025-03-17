@@ -6,6 +6,7 @@ public partial class Form1 : Form
 {
     private readonly IConfigurationRoot _configuration;
     private string? _wavPath;
+    private string? _srtPath;
 
     public Form1()
     {
@@ -28,7 +29,7 @@ public partial class Form1 : Form
         comboBoxModel.SelectedItem = comboBoxModel.Items.Cast<string>().FirstOrDefault(x => x == "ggml-large-v3.bin");
     }
 
-    private async void buttonBuildWav_Click(object sender, EventArgs e)
+    private void buttonBuildWav_Click(object sender, EventArgs e)
     {
         openFileDialog.Filter = "视频文件|*.mp4;*.avi;*.mkv;*.mov;*.wmv|所有文件|*.*";
         openFileDialog.Title = "选择视频文件";
@@ -40,7 +41,12 @@ public partial class Form1 : Form
             return;
         }
 
-        _wavPath = await BuildWav.BuildWavFromMovieAsync(openFileDialog.FileName, ffmpegPath);
+        BuildWavFromMovieShellAsync(openFileDialog.FileName, ffmpegPath);
+    }
+
+    private async Task BuildWavFromMovieShellAsync(string fileName, string ffmpegPath)
+    {
+        _wavPath = await BuildWav.BuildWavFromMovieAsync(fileName, ffmpegPath);
     }
 
     private void buttonConvertToScFile_Click(object sender, EventArgs e)
@@ -107,5 +113,38 @@ public partial class Form1 : Form
         openFileDialog.Title = "选择音频文件";
         if (openFileDialog.ShowDialog() != DialogResult.OK) return;
         _wavPath = openFileDialog.FileName;
+    }
+
+    private void buttonSelectSrt_Click(object sender, EventArgs e)
+    {
+        openFileDialog.Filter = "字幕文件|*.srt";
+        openFileDialog.Title = "选择字幕文件";
+        if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+        _srtPath = openFileDialog.FileName;
+    }
+
+    private void buttonTranslate_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(_srtPath))
+        {
+            MessageBox.Show("未找到对应的字幕文件");
+            return;
+        }
+
+        var model = _configuration["AppSettings:model"];
+        if (string.IsNullOrEmpty(model))
+        {
+            MessageBox.Show("未配置模型");
+            return;
+        }
+
+        var prompt = _configuration["AppSettings:prompt"];
+        if (string.IsNullOrEmpty(prompt))
+        {
+            MessageBox.Show("未配置提示词");
+            return;
+        }
+
+        TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt);
     }
 }

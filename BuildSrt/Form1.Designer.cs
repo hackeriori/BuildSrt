@@ -63,6 +63,10 @@ partial class Form1
         textBoxLG = new System.Windows.Forms.TextBox();
         label17 = new System.Windows.Forms.Label();
         buttonSelectWav = new System.Windows.Forms.Button();
+        buttonSelectSrt = new System.Windows.Forms.Button();
+        buttonTranslate = new System.Windows.Forms.Button();
+        textBoxSuffix = new System.Windows.Forms.TextBox();
+        label18 = new System.Windows.Forms.Label();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartHour).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartSecond).BeginInit();
@@ -75,7 +79,7 @@ partial class Form1
         // 
         // buttonBuildWav
         // 
-        buttonBuildWav.Location = new System.Drawing.Point(104, 79);
+        buttonBuildWav.Location = new System.Drawing.Point(104, 58);
         buttonBuildWav.Name = "buttonBuildWav";
         buttonBuildWav.Size = new System.Drawing.Size(205, 36);
         buttonBuildWav.TabIndex = 0;
@@ -107,7 +111,7 @@ partial class Form1
         // 
         // label2
         // 
-        label2.Location = new System.Drawing.Point(104, 49);
+        label2.Location = new System.Drawing.Point(104, 28);
         label2.Name = "label2";
         label2.Size = new System.Drawing.Size(88, 17);
         label2.TabIndex = 3;
@@ -125,7 +129,7 @@ partial class Form1
         // 
         // buttonGetSrt
         // 
-        buttonGetSrt.Location = new System.Drawing.Point(443, 334);
+        buttonGetSrt.Location = new System.Drawing.Point(443, 313);
         buttonGetSrt.Name = "buttonGetSrt";
         buttonGetSrt.Size = new System.Drawing.Size(205, 36);
         buttonGetSrt.TabIndex = 6;
@@ -135,7 +139,7 @@ partial class Form1
         // 
         // label3
         // 
-        label3.Location = new System.Drawing.Point(443, 49);
+        label3.Location = new System.Drawing.Point(443, 28);
         label3.Name = "label3";
         label3.Size = new System.Drawing.Size(60, 23);
         label3.TabIndex = 7;
@@ -143,28 +147,28 @@ partial class Form1
         // 
         // numericUpDownStartHour
         // 
-        numericUpDownStartHour.Location = new System.Drawing.Point(443, 75);
+        numericUpDownStartHour.Location = new System.Drawing.Point(443, 54);
         numericUpDownStartHour.Name = "numericUpDownStartHour";
         numericUpDownStartHour.Size = new System.Drawing.Size(53, 23);
         numericUpDownStartHour.TabIndex = 8;
         // 
         // numericUpDownStartMinute
         // 
-        numericUpDownStartMinute.Location = new System.Drawing.Point(522, 75);
+        numericUpDownStartMinute.Location = new System.Drawing.Point(522, 54);
         numericUpDownStartMinute.Name = "numericUpDownStartMinute";
         numericUpDownStartMinute.Size = new System.Drawing.Size(49, 23);
         numericUpDownStartMinute.TabIndex = 9;
         // 
         // numericUpDownStartSecond
         // 
-        numericUpDownStartSecond.Location = new System.Drawing.Point(594, 75);
+        numericUpDownStartSecond.Location = new System.Drawing.Point(594, 54);
         numericUpDownStartSecond.Name = "numericUpDownStartSecond";
         numericUpDownStartSecond.Size = new System.Drawing.Size(54, 23);
         numericUpDownStartSecond.TabIndex = 10;
         // 
         // label4
         // 
-        label4.Location = new System.Drawing.Point(501, 75);
+        label4.Location = new System.Drawing.Point(501, 54);
         label4.Name = "label4";
         label4.Size = new System.Drawing.Size(15, 23);
         label4.TabIndex = 11;
@@ -172,7 +176,7 @@ partial class Form1
         // 
         // label5
         // 
-        label5.Location = new System.Drawing.Point(575, 75);
+        label5.Location = new System.Drawing.Point(575, 54);
         label5.Name = "label5";
         label5.Size = new System.Drawing.Size(20, 23);
         label5.TabIndex = 12;
@@ -180,7 +184,7 @@ partial class Form1
         // 
         // label6
         // 
-        label6.Location = new System.Drawing.Point(654, 75);
+        label6.Location = new System.Drawing.Point(654, 54);
         label6.Name = "label6";
         label6.Size = new System.Drawing.Size(20, 23);
         label6.TabIndex = 13;
@@ -188,7 +192,7 @@ partial class Form1
         // 
         // label7
         // 
-        label7.Location = new System.Drawing.Point(654, 134);
+        label7.Location = new System.Drawing.Point(654, 113);
         label7.Name = "label7";
         label7.Size = new System.Drawing.Size(20, 23);
         label7.TabIndex = 20;
@@ -196,7 +200,7 @@ partial class Form1
         // 
         // label8
         // 
-        label8.Location = new System.Drawing.Point(575, 134);
+        label8.Location = new System.Drawing.Point(575, 113);
         label8.Name = "label8";
         label8.Size = new System.Drawing.Size(20, 23);
         label8.TabIndex = 19;
@@ -204,7 +208,7 @@ partial class Form1
         // 
         // label9
         // 
-        label9.Location = new System.Drawing.Point(501, 134);
+        label9.Location = new System.Drawing.Point(501, 113);
         label9.Name = "label9";
         label9.Size = new System.Drawing.Size(15, 23);
         label9.TabIndex = 18;
@@ -212,28 +216,28 @@ partial class Form1
         // 
         // numericUpDownEndSecond
         // 
-        numericUpDownEndSecond.Location = new System.Drawing.Point(594, 134);
+        numericUpDownEndSecond.Location = new System.Drawing.Point(594, 113);
         numericUpDownEndSecond.Name = "numericUpDownEndSecond";
         numericUpDownEndSecond.Size = new System.Drawing.Size(54, 23);
         numericUpDownEndSecond.TabIndex = 17;
         // 
         // numericUpDownEndMinute
         // 
-        numericUpDownEndMinute.Location = new System.Drawing.Point(522, 134);
+        numericUpDownEndMinute.Location = new System.Drawing.Point(522, 113);
         numericUpDownEndMinute.Name = "numericUpDownEndMinute";
         numericUpDownEndMinute.Size = new System.Drawing.Size(49, 23);
         numericUpDownEndMinute.TabIndex = 16;
         // 
         // numericUpDownEndHour
         // 
-        numericUpDownEndHour.Location = new System.Drawing.Point(443, 134);
+        numericUpDownEndHour.Location = new System.Drawing.Point(443, 113);
         numericUpDownEndHour.Name = "numericUpDownEndHour";
         numericUpDownEndHour.Size = new System.Drawing.Size(53, 23);
         numericUpDownEndHour.TabIndex = 15;
         // 
         // label10
         // 
-        label10.Location = new System.Drawing.Point(443, 108);
+        label10.Location = new System.Drawing.Point(443, 87);
         label10.Name = "label10";
         label10.Size = new System.Drawing.Size(60, 23);
         label10.TabIndex = 14;
@@ -242,14 +246,14 @@ partial class Form1
         // comboBoxModel
         // 
         comboBoxModel.FormattingEnabled = true;
-        comboBoxModel.Location = new System.Drawing.Point(509, 175);
+        comboBoxModel.Location = new System.Drawing.Point(509, 154);
         comboBoxModel.Name = "comboBoxModel";
         comboBoxModel.Size = new System.Drawing.Size(202, 25);
         comboBoxModel.TabIndex = 21;
         // 
         // label11
         // 
-        label11.Location = new System.Drawing.Point(443, 177);
+        label11.Location = new System.Drawing.Point(443, 156);
         label11.Name = "label11";
         label11.Size = new System.Drawing.Size(60, 23);
         label11.TabIndex = 22;
@@ -257,7 +261,7 @@ partial class Form1
         // 
         // label12
         // 
-        label12.Location = new System.Drawing.Point(443, 220);
+        label12.Location = new System.Drawing.Point(443, 199);
         label12.Name = "label12";
         label12.Size = new System.Drawing.Size(92, 23);
         label12.TabIndex = 23;
@@ -267,7 +271,7 @@ partial class Form1
         // 
         numericUpDownET.DecimalPlaces = 2;
         numericUpDownET.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
-        numericUpDownET.Location = new System.Drawing.Point(541, 220);
+        numericUpDownET.Location = new System.Drawing.Point(541, 199);
         numericUpDownET.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
         numericUpDownET.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
         numericUpDownET.Name = "numericUpDownET";
@@ -277,7 +281,7 @@ partial class Form1
         // 
         // label13
         // 
-        label13.Location = new System.Drawing.Point(476, 261);
+        label13.Location = new System.Drawing.Point(476, 240);
         label13.Name = "label13";
         label13.Size = new System.Drawing.Size(59, 23);
         label13.TabIndex = 25;
@@ -287,7 +291,7 @@ partial class Form1
         // 
         numericUpDownTPI.DecimalPlaces = 2;
         numericUpDownTPI.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
-        numericUpDownTPI.Location = new System.Drawing.Point(542, 260);
+        numericUpDownTPI.Location = new System.Drawing.Point(542, 239);
         numericUpDownTPI.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
         numericUpDownTPI.Name = "numericUpDownTPI";
         numericUpDownTPI.Size = new System.Drawing.Size(53, 23);
@@ -296,7 +300,7 @@ partial class Form1
         // 
         // label14
         // 
-        label14.Location = new System.Drawing.Point(601, 261);
+        label14.Location = new System.Drawing.Point(601, 240);
         label14.Name = "label14";
         label14.Size = new System.Drawing.Size(83, 23);
         label14.TabIndex = 27;
@@ -304,7 +308,7 @@ partial class Form1
         // 
         // label15
         // 
-        label15.Location = new System.Drawing.Point(601, 220);
+        label15.Location = new System.Drawing.Point(601, 199);
         label15.Name = "label15";
         label15.Size = new System.Drawing.Size(110, 23);
         label15.TabIndex = 28;
@@ -312,7 +316,7 @@ partial class Form1
         // 
         // label16
         // 
-        label16.Location = new System.Drawing.Point(476, 297);
+        label16.Location = new System.Drawing.Point(476, 276);
         label16.Name = "label16";
         label16.Size = new System.Drawing.Size(59, 23);
         label16.TabIndex = 29;
@@ -320,7 +324,7 @@ partial class Form1
         // 
         // textBoxLG
         // 
-        textBoxLG.Location = new System.Drawing.Point(541, 295);
+        textBoxLG.Location = new System.Drawing.Point(541, 274);
         textBoxLG.Name = "textBoxLG";
         textBoxLG.Size = new System.Drawing.Size(53, 23);
         textBoxLG.TabIndex = 30;
@@ -328,7 +332,7 @@ partial class Form1
         // 
         // label17
         // 
-        label17.Location = new System.Drawing.Point(601, 297);
+        label17.Location = new System.Drawing.Point(601, 276);
         label17.Name = "label17";
         label17.Size = new System.Drawing.Size(117, 23);
         label17.TabIndex = 31;
@@ -336,7 +340,7 @@ partial class Form1
         // 
         // buttonSelectWav
         // 
-        buttonSelectWav.Location = new System.Drawing.Point(104, 121);
+        buttonSelectWav.Location = new System.Drawing.Point(104, 100);
         buttonSelectWav.Name = "buttonSelectWav";
         buttonSelectWav.Size = new System.Drawing.Size(205, 36);
         buttonSelectWav.TabIndex = 32;
@@ -344,11 +348,51 @@ partial class Form1
         buttonSelectWav.UseVisualStyleBackColor = true;
         buttonSelectWav.Click += buttonSelectWav_Click;
         // 
+        // buttonSelectSrt
+        // 
+        buttonSelectSrt.Location = new System.Drawing.Point(104, 143);
+        buttonSelectSrt.Name = "buttonSelectSrt";
+        buttonSelectSrt.Size = new System.Drawing.Size(205, 36);
+        buttonSelectSrt.TabIndex = 33;
+        buttonSelectSrt.Text = "1.选择已有字幕文件";
+        buttonSelectSrt.UseVisualStyleBackColor = true;
+        buttonSelectSrt.Click += buttonSelectSrt_Click;
+        // 
+        // buttonTranslate
+        // 
+        buttonTranslate.Location = new System.Drawing.Point(443, 399);
+        buttonTranslate.Name = "buttonTranslate";
+        buttonTranslate.Size = new System.Drawing.Size(205, 36);
+        buttonTranslate.TabIndex = 34;
+        buttonTranslate.Text = "3.翻译字幕内容";
+        buttonTranslate.UseVisualStyleBackColor = true;
+        buttonTranslate.Click += buttonTranslate_Click;
+        // 
+        // textBoxSuffix
+        // 
+        textBoxSuffix.Location = new System.Drawing.Point(505, 365);
+        textBoxSuffix.Name = "textBoxSuffix";
+        textBoxSuffix.Size = new System.Drawing.Size(143, 23);
+        textBoxSuffix.TabIndex = 35;
+        textBoxSuffix.Text = "中英.ZH";
+        // 
+        // label18
+        // 
+        label18.Location = new System.Drawing.Point(442, 367);
+        label18.Name = "label18";
+        label18.Size = new System.Drawing.Size(61, 23);
+        label18.TabIndex = 36;
+        label18.Text = "字幕后缀";
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        ClientSize = new System.Drawing.Size(800, 450);
+        ClientSize = new System.Drawing.Size(800, 470);
+        Controls.Add(label18);
+        Controls.Add(textBoxSuffix);
+        Controls.Add(buttonTranslate);
+        Controls.Add(buttonSelectSrt);
         Controls.Add(buttonSelectWav);
         Controls.Add(label17);
         Controls.Add(textBoxLG);
@@ -393,6 +437,13 @@ partial class Form1
         ResumeLayout(false);
         PerformLayout();
     }
+
+    private System.Windows.Forms.TextBox textBoxSuffix;
+    private System.Windows.Forms.Label label18;
+
+    private System.Windows.Forms.Button buttonTranslate;
+
+    private System.Windows.Forms.Button buttonSelectSrt;
 
     private System.Windows.Forms.Button buttonSelectWav;
 
