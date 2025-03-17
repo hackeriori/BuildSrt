@@ -145,6 +145,6 @@ public partial class Form1 : Form
             return;
         }
 
-        TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt);
+        TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt, textBoxResult);
     }
 }

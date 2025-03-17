@@ -1,5 +1,4 @@
-﻿using System.Text;
-using OllamaSharp;
+﻿using OllamaSharp;
 
 namespace BuildSrt;
 
@@ -12,7 +11,9 @@ public abstract class TranslateSrt
     /// <param name="suffix">新字幕文件后缀名</param>
     /// <param name="model">ollama使用的模型名称</param>
     /// <param name="prompt">ollama的提示词</param>
-    public static async Task TranslateSrtAsync(string srtPath, string suffix, string model, string prompt)
+    /// <param name="textBox">显示结果的文本框</param>
+    public static async Task TranslateSrtAsync(string srtPath, string suffix, string model, string prompt,
+        TextBox textBox)
     {
         var directory = Path.GetDirectoryName(srtPath);
         if (string.IsNullOrEmpty(directory))
@@ -68,10 +69,15 @@ public abstract class TranslateSrt
 
             // 添加处理后的条目
             newLines.Add(entry[0]); // 序号
+            textBox.Text += $"{entry[0]}/{entries.Count}\r\n";
             newLines.Add(entry[1]); // 时间轴
             newLines.Add(result); // 翻译后的内容
+            textBox.Text += $"{result}\r\n";
             newLines.Add(mergedContent); // 合并后的原文
+            textBox.Text += $"{mergedContent}\r\n\r\n";
             newLines.Add(""); // 条目间空行
+            textBox.SelectionStart = textBox.Text.Length;
+            textBox.ScrollToCaret();
         }
 
         // 移除末尾多余的空行
