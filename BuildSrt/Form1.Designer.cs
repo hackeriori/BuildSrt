@@ -391,7 +391,6 @@ partial class Form1
         textBoxResult.Multiline = true;
         textBoxResult.Name = "textBoxResult";
         textBoxResult.ReadOnly = true;
-        textBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
         textBoxResult.Size = new System.Drawing.Size(388, 339);
         textBoxResult.TabIndex = 37;
         // 

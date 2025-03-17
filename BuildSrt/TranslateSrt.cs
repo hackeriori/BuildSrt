@@ -53,6 +53,8 @@ public abstract class TranslateSrt
 
         // 构建处理后的新内容
         var newLines = new List<string>();
+        // 定义一个变量用于存储最近的 5 条记录
+        var recentRecords = new List<string>();
         foreach (var entry in entries)
         {
             // 忽略无效条目（至少包含序号、时间轴和内容）
@@ -66,18 +68,22 @@ public abstract class TranslateSrt
             var result = "";
             await foreach (var answerToken in chat.SendAsync(mergedContent))
                 result += answerToken;
+            // 构建显示文本
+            var displayText = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
+            // 将新内容添加到 recentRecords 的最前面
+            recentRecords.Insert(0, displayText);
+            // 确保 recentRecords 只保留最近的 5 条记录
+            if (recentRecords.Count > 5)
+                recentRecords.RemoveAt(recentRecords.Count - 1);
+            // 更新 textBox 的内容
+            textBox.Text = string.Join("\r\n", recentRecords);
 
             // 添加处理后的条目
             newLines.Add(entry[0]); // 序号
-            textBox.Text += $"{entry[0]}/{entries.Count}\r\n";
             newLines.Add(entry[1]); // 时间轴
             newLines.Add(result); // 翻译后的内容
-            textBox.Text += $"{result}\r\n";
             newLines.Add(mergedContent); // 合并后的原文
-            textBox.Text += $"{mergedContent}\r\n\r\n";
             newLines.Add(""); // 条目间空行
-            textBox.SelectionStart = textBox.Text.Length;
-            textBox.ScrollToCaret();
         }
 
         // 移除末尾多余的空行
