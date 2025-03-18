@@ -17,7 +17,7 @@ public partial class Form1 : Form
         _configuration = builder.Build();
         // 获取模型列表
         var whisperPath = _configuration["AppSettings:whisperPath"];
-        var directory = Path.Combine(Path.GetDirectoryName(whisperPath), "models");
+        var directory = Path.Combine(Path.GetDirectoryName(whisperPath)!, "models");
         if (!Directory.Exists(directory)) return;
         var files = Directory.GetFiles(directory, "*.bin");
         foreach (var file in files)
@@ -41,7 +41,7 @@ public partial class Form1 : Form
             return;
         }
 
-        BuildWavFromMovieShellAsync(openFileDialog.FileName, ffmpegPath);
+        _ = BuildWavFromMovieShellAsync(openFileDialog.FileName, ffmpegPath);
     }
 
     private async Task BuildWavFromMovieShellAsync(string fileName, string ffmpegPath)
@@ -67,10 +67,12 @@ public partial class Form1 : Form
 
     private void buttonGetSrt_Click(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(_wavPath) || !File.Exists(_wavPath))
+        if (string.IsNullOrEmpty(_wavPath))
         {
-            MessageBox.Show("未找到对应的音频文件");
-            return;
+            openFileDialog.Filter = "音频文件|*.wav";
+            openFileDialog.Title = "选择音频文件";
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            _wavPath = openFileDialog.FileName;
         }
 
         var whisperPath = _configuration["AppSettings:whisperPath"];
@@ -103,32 +105,25 @@ public partial class Form1 : Form
                 duration -= offsetTime;
         }
 
-        GetSrt.GetSrtFromWavAsync(_wavPath, whisperPath, modelPath, numericUpDownET.Value,
+        _ = GetSrtFromWavShellAsync(_wavPath, whisperPath, modelPath, numericUpDownET.Value,
             numericUpDownTPI.Value, offsetTime, duration, textBoxLG.Text);
     }
 
-    private void buttonSelectWav_Click(object sender, EventArgs e)
+    private async Task GetSrtFromWavShellAsync(string wavPath, string whisperPath, string modelPath,
+        decimal? entropyThreshold, decimal? temperatureInc, int? offsetTime, int? duration, string? language)
     {
-        openFileDialog.Filter = "音频文件|*.wav";
-        openFileDialog.Title = "选择音频文件";
-        if (openFileDialog.ShowDialog() != DialogResult.OK) return;
-        _wavPath = openFileDialog.FileName;
-    }
-
-    private void buttonSelectSrt_Click(object sender, EventArgs e)
-    {
-        openFileDialog.Filter = "字幕文件|*.srt";
-        openFileDialog.Title = "选择字幕文件";
-        if (openFileDialog.ShowDialog() != DialogResult.OK) return;
-        _srtPath = openFileDialog.FileName;
+        _srtPath = await GetSrt.GetSrtFromWavAsync(wavPath, whisperPath, modelPath, entropyThreshold, temperatureInc,
+            offsetTime, duration, language);
     }
 
     private void buttonTranslate_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(_srtPath))
         {
-            MessageBox.Show("未找到对应的字幕文件");
-            return;
+            openFileDialog.Filter = "字幕文件|*.srt";
+            openFileDialog.Title = "选择字幕文件";
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            _srtPath = openFileDialog.FileName;
         }
 
         var model = _configuration["AppSettings:model"];
@@ -145,6 +140,14 @@ public partial class Form1 : Form
             return;
         }
 
-        TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt, textBoxResult);
+        _ = TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt, textBoxResult);
+    }
+
+    private void buttonSelectSrt_Click(object sender, EventArgs e)
+    {
+        openFileDialog.Filter = "字幕文件|*.srt";
+        openFileDialog.Title = "选择字幕文件";
+        if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+        _srtPath = openFileDialog.FileName;
     }
 }

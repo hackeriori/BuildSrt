@@ -17,12 +17,12 @@ public abstract class GetSrt
     /// <param name="offsetTime">开始时间</param>
     /// <param name="duration">持续时间</param>
     /// <param name="language">默认值en，自动检测可用 'auto'</param>
-    public static async Task GetSrtFromWavAsync(string wavPath, string whisperPath, string modelPath,
+    public static async Task<string?> GetSrtFromWavAsync(string wavPath, string whisperPath, string modelPath,
         decimal? entropyThreshold, decimal? temperatureInc, int? offsetTime, int? duration, string? language)
     {
         var directory = Path.GetDirectoryName(wavPath);
         if (string.IsNullOrEmpty(directory))
-            return;
+            return null;
         var wavName = Path.GetFileNameWithoutExtension(wavPath);
         var newPath = Path.Combine(directory, wavName);
         var newSrtIndex = 1;
@@ -60,5 +60,6 @@ public abstract class GetSrt
         {
             // ignored
         }
+        return File.Exists(newPath + ".srt") ? newPath + ".srt" : null;
     }
 }

@@ -62,12 +62,11 @@ partial class Form1
         label16 = new System.Windows.Forms.Label();
         textBoxLG = new System.Windows.Forms.TextBox();
         label17 = new System.Windows.Forms.Label();
-        buttonSelectWav = new System.Windows.Forms.Button();
-        buttonSelectSrt = new System.Windows.Forms.Button();
         buttonTranslate = new System.Windows.Forms.Button();
         textBoxSuffix = new System.Windows.Forms.TextBox();
         label18 = new System.Windows.Forms.Label();
         textBoxResult = new System.Windows.Forms.TextBox();
+        buttonSelectSrt = new System.Windows.Forms.Button();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartHour).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartSecond).BeginInit();
@@ -94,7 +93,7 @@ partial class Form1
         // 
         // buttonConvertToScFile
         // 
-        buttonConvertToScFile.Location = new System.Drawing.Point(73, 295);
+        buttonConvertToScFile.Location = new System.Drawing.Point(73, 254);
         buttonConvertToScFile.Name = "buttonConvertToScFile";
         buttonConvertToScFile.Size = new System.Drawing.Size(176, 36);
         buttonConvertToScFile.TabIndex = 1;
@@ -104,7 +103,7 @@ partial class Form1
         // 
         // label1
         // 
-        label1.Location = new System.Drawing.Point(73, 258);
+        label1.Location = new System.Drawing.Point(73, 217);
         label1.Name = "label1";
         label1.Size = new System.Drawing.Size(110, 24);
         label1.TabIndex = 2;
@@ -120,7 +119,7 @@ partial class Form1
         // 
         // buttonConvertToScDir
         // 
-        buttonConvertToScDir.Location = new System.Drawing.Point(73, 352);
+        buttonConvertToScDir.Location = new System.Drawing.Point(73, 311);
         buttonConvertToScDir.Name = "buttonConvertToScDir";
         buttonConvertToScDir.Size = new System.Drawing.Size(176, 36);
         buttonConvertToScDir.TabIndex = 4;
@@ -339,31 +338,11 @@ partial class Form1
         label17.TabIndex = 31;
         label17.Text = "自动检测可用 \'auto\'";
         // 
-        // buttonSelectWav
-        // 
-        buttonSelectWav.Location = new System.Drawing.Point(73, 98);
-        buttonSelectWav.Name = "buttonSelectWav";
-        buttonSelectWav.Size = new System.Drawing.Size(205, 36);
-        buttonSelectWav.TabIndex = 32;
-        buttonSelectWav.Text = "1.选择已有音频文件";
-        buttonSelectWav.UseVisualStyleBackColor = true;
-        buttonSelectWav.Click += buttonSelectWav_Click;
-        // 
-        // buttonSelectSrt
-        // 
-        buttonSelectSrt.Location = new System.Drawing.Point(73, 141);
-        buttonSelectSrt.Name = "buttonSelectSrt";
-        buttonSelectSrt.Size = new System.Drawing.Size(205, 36);
-        buttonSelectSrt.TabIndex = 33;
-        buttonSelectSrt.Text = "1.选择已有字幕文件";
-        buttonSelectSrt.UseVisualStyleBackColor = true;
-        buttonSelectSrt.Click += buttonSelectSrt_Click;
-        // 
         // buttonTranslate
         // 
         buttonTranslate.Location = new System.Drawing.Point(670, 60);
         buttonTranslate.Name = "buttonTranslate";
-        buttonTranslate.Size = new System.Drawing.Size(205, 36);
+        buttonTranslate.Size = new System.Drawing.Size(163, 36);
         buttonTranslate.TabIndex = 34;
         buttonTranslate.Text = "3.翻译字幕内容";
         buttonTranslate.UseVisualStyleBackColor = true;
@@ -394,17 +373,26 @@ partial class Form1
         textBoxResult.Size = new System.Drawing.Size(388, 339);
         textBoxResult.TabIndex = 37;
         // 
+        // buttonSelectSrt
+        // 
+        buttonSelectSrt.Location = new System.Drawing.Point(852, 60);
+        buttonSelectSrt.Name = "buttonSelectSrt";
+        buttonSelectSrt.Size = new System.Drawing.Size(163, 36);
+        buttonSelectSrt.TabIndex = 38;
+        buttonSelectSrt.Text = "3.重新选择字幕文件";
+        buttonSelectSrt.UseVisualStyleBackColor = true;
+        buttonSelectSrt.Click += buttonSelectSrt_Click;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(1081, 470);
+        Controls.Add(buttonSelectSrt);
         Controls.Add(textBoxResult);
         Controls.Add(label18);
         Controls.Add(textBoxSuffix);
         Controls.Add(buttonTranslate);
-        Controls.Add(buttonSelectSrt);
-        Controls.Add(buttonSelectWav);
         Controls.Add(label17);
         Controls.Add(textBoxLG);
         Controls.Add(label16);
@@ -449,16 +437,14 @@ partial class Form1
         PerformLayout();
     }
 
+    private System.Windows.Forms.Button buttonSelectSrt;
+
     private System.Windows.Forms.TextBox textBoxResult;
 
     private System.Windows.Forms.TextBox textBoxSuffix;
     private System.Windows.Forms.Label label18;
 
     private System.Windows.Forms.Button buttonTranslate;
-
-    private System.Windows.Forms.Button buttonSelectSrt;
-
-    private System.Windows.Forms.Button buttonSelectWav;
 
     private System.Windows.Forms.Label label16;
     private System.Windows.Forms.TextBox textBoxLG;
