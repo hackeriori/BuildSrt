@@ -55,7 +55,7 @@ public abstract class TranslateSrt
 
         // 生成新文件路径
         var newFilePath = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(srtPath)}.{suffix}.srt");
-        await using var writer = new StreamWriter(newFilePath);
+        await using var writer = new StreamWriter(newFilePath, append: true);
 
         // 定义参数转换
         var startIndex = Math.Max(0, startLine - 1);
