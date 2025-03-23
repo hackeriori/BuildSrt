@@ -102,6 +102,7 @@ public abstract class TranslateSrt
             await writer.WriteLineAsync(result);   // 翻译内容
             await writer.WriteLineAsync(mergedContent); // 原文
             await writer.WriteLineAsync();         // 空行分隔
+            await writer.FlushAsync();
         }
     }
 }
