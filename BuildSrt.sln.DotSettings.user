@@ -7,9 +7,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AProcess_002EWin32_002Ecs_002Fl_003AC_0021_003FUsers_003FAdministrator_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003Fa5778453abf45dce627163c39b2313f33a6c418989928f5db567cac3c557b8be_003FProcess_002EWin32_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AStrings_002Evb_002Fl_003AC_0021_003FUsers_003FAdministrator_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F5a8041d8161ac987b080ea9b6f48a3f851428ff5f9d1f31c891afb2fd4f4d8_003FStrings_002Evb/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
-  &lt;Assembly Path="C:\Users\Administrator\.nuget\packages\traditionalchinesetosimplifiedconverter\1.0.0\lib\ChineseConverter.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Administrator\.nuget\packages\openccdotnet.net8\1.0.0\lib\net8.0\OpenCCDotNet.Net8.dll" /&gt;&#xD;
-  &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\9.0.2\ref\net9.0\System.Collections.Immutable.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=BuildSrt_002FForm1/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>

@@ -67,6 +67,10 @@ partial class Form1
         label18 = new System.Windows.Forms.Label();
         textBoxResult = new System.Windows.Forms.TextBox();
         buttonSelectSrt = new System.Windows.Forms.Button();
+        numericUpDownStartLine = new System.Windows.Forms.NumericUpDown();
+        numericUpDownEndLine = new System.Windows.Forms.NumericUpDown();
+        label19 = new System.Windows.Forms.Label();
+        label20 = new System.Windows.Forms.Label();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartHour).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartSecond).BeginInit();
@@ -75,6 +79,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numericUpDownEndHour).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownET).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownTPI).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numericUpDownStartLine).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numericUpDownEndLine).BeginInit();
         SuspendLayout();
         // 
         // buttonBuildWav
@@ -352,7 +358,7 @@ partial class Form1
         // 
         textBoxSuffix.Location = new System.Drawing.Point(732, 26);
         textBoxSuffix.Name = "textBoxSuffix";
-        textBoxSuffix.Size = new System.Drawing.Size(143, 23);
+        textBoxSuffix.Size = new System.Drawing.Size(71, 23);
         textBoxSuffix.TabIndex = 35;
         textBoxSuffix.Text = "中英.ZH";
         // 
@@ -383,11 +389,49 @@ partial class Form1
         buttonSelectSrt.UseVisualStyleBackColor = true;
         buttonSelectSrt.Click += buttonSelectSrt_Click;
         // 
+        // numericUpDownStartLine
+        // 
+        numericUpDownStartLine.Location = new System.Drawing.Point(871, 28);
+        numericUpDownStartLine.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+        numericUpDownStartLine.Name = "numericUpDownStartLine";
+        numericUpDownStartLine.Size = new System.Drawing.Size(50, 23);
+        numericUpDownStartLine.TabIndex = 39;
+        // 
+        // numericUpDownEndLine
+        // 
+        numericUpDownEndLine.Location = new System.Drawing.Point(992, 30);
+        numericUpDownEndLine.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+        numericUpDownEndLine.Minimum = new decimal(new int[] { 1, 0, 0, -2147483648 });
+        numericUpDownEndLine.Name = "numericUpDownEndLine";
+        numericUpDownEndLine.Size = new System.Drawing.Size(50, 23);
+        numericUpDownEndLine.TabIndex = 40;
+        numericUpDownEndLine.Value = new decimal(new int[] { 1, 0, 0, -2147483648 });
+        // 
+        // label19
+        // 
+        label19.Location = new System.Drawing.Point(819, 28);
+        label19.Name = "label19";
+        label19.Size = new System.Drawing.Size(46, 23);
+        label19.TabIndex = 41;
+        label19.Text = "开始行";
+        // 
+        // label20
+        // 
+        label20.Location = new System.Drawing.Point(940, 30);
+        label20.Name = "label20";
+        label20.Size = new System.Drawing.Size(46, 23);
+        label20.TabIndex = 42;
+        label20.Text = "结束行";
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(1081, 470);
+        Controls.Add(label20);
+        Controls.Add(label19);
+        Controls.Add(numericUpDownEndLine);
+        Controls.Add(numericUpDownStartLine);
         Controls.Add(buttonSelectSrt);
         Controls.Add(textBoxResult);
         Controls.Add(label18);
@@ -433,9 +477,18 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numericUpDownEndHour).EndInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownET).EndInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownTPI).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numericUpDownStartLine).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numericUpDownEndLine).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
+
+    private System.Windows.Forms.Label label19;
+    private System.Windows.Forms.Label label20;
+
+    private System.Windows.Forms.NumericUpDown numericUpDownEndLine;
+
+    private System.Windows.Forms.NumericUpDown numericUpDownStartLine;
 
     private System.Windows.Forms.Button buttonSelectSrt;
 

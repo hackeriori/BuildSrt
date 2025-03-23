@@ -1,4 +1,4 @@
-﻿using OllamaSharp;
+using OllamaSharp;
 
 namespace BuildSrt;
 
@@ -12,8 +12,10 @@ public abstract class TranslateSrt
     /// <param name="model">ollama使用的模型名称</param>
     /// <param name="prompt">ollama的提示词</param>
     /// <param name="textBox">显示结果的文本框</param>
+    /// <param name="startLine">起始处理的字幕条目序号</param>
+    /// <param name="endLine">结束处理的字幕条目序号</param>
     public static async Task TranslateSrtAsync(string srtPath, string suffix, string model, string prompt,
-        TextBox textBox)
+        TextBox textBox, int startLine = 1, int endLine = -1)
     {
         var directory = Path.GetDirectoryName(srtPath);
         if (string.IsNullOrEmpty(directory))
@@ -51,12 +53,28 @@ public abstract class TranslateSrt
             entries.Add(currentEntry);
         }
 
-        // 构建处理后的新内容
-        var newLines = new List<string>();
-        // 定义一个变量用于存储最近的 5 条记录
-        var recentRecords = new List<string>();
-        foreach (var entry in entries)
+        // 生成新文件路径
+        var newFilePath = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(srtPath)}.{suffix}.srt");
+        await using var writer = new StreamWriter(newFilePath);
+
+        // 定义参数转换
+        var startIndex = Math.Max(0, startLine - 1);
+        var endIndex = endLine == -1 ? entries.Count - 1 : Math.Min(entries.Count - 1, endLine - 1);
+
+        // 检查范围是否有效
+        if (startIndex > endIndex || startIndex >= entries.Count)
         {
+            throw new ArgumentException("起始行或结束行超出有效范围。");
+        }
+
+        // 定义最近记录
+        var recentRecords = new List<string>();
+        for (var i = 0; i < entries.Count; i++)
+        {
+            // 跳过不在范围的条目
+            if (i < startIndex || i > endIndex) continue;
+
+            var entry = entries[i];
             // 忽略无效条目（至少包含序号、时间轴和内容）
             if (entry.Count < 3)
             {
@@ -68,34 +86,22 @@ public abstract class TranslateSrt
             var result = "";
             await foreach (var answerToken in chat.SendAsync(mergedContent))
                 result += answerToken;
-            // 构建显示文本
+            // 构建显示文本（使用原始条目序号）
             var displayText = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
-            // 将新内容添加到 recentRecords 的最前面
+            // 更新最近记录
             recentRecords.Insert(0, displayText);
-            // 确保 recentRecords 只保留最近的 5 条记录
             if (recentRecords.Count > 5)
-                recentRecords.RemoveAt(recentRecords.Count - 1);
-            // 更新 textBox 的内容
+                recentRecords.RemoveAt(5);
+
+            // 更新文本框
             textBox.Text = string.Join("\r\n", recentRecords);
 
-            // 添加处理后的条目
-            newLines.Add(entry[0]); // 序号
-            newLines.Add(entry[1]); // 时间轴
-            newLines.Add(result); // 翻译后的内容
-            newLines.Add(mergedContent); // 合并后的原文
-            newLines.Add(""); // 条目间空行
+            // 写入文件
+            await writer.WriteLineAsync(entry[0]); // 序号
+            await writer.WriteLineAsync(entry[1]); // 时间轴
+            await writer.WriteLineAsync(result);   // 翻译内容
+            await writer.WriteLineAsync(mergedContent); // 原文
+            await writer.WriteLineAsync();         // 空行分隔
         }
-
-        // 移除末尾多余的空行
-        if (newLines.Count > 0 && string.IsNullOrEmpty(newLines.Last()))
-        {
-            newLines.RemoveAt(newLines.Count - 1);
-        }
-
-        // 生成新文件路径（原文件名加_merged）
-        var newFilePath = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(srtPath)}.{suffix}.srt");
-
-        // 写入处理后的内容
-        await File.WriteAllLinesAsync(newFilePath, newLines);
     }
 }
