@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace BuildSrt;
+﻿namespace BuildSrt;
 
 using System.Diagnostics;
 
@@ -56,10 +54,11 @@ public abstract class GetSrt
             process.Start();
             await process.WaitForExitAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            // ignored
+            MessageBox.Show(e.Message);
         }
+
         return File.Exists(newPath + ".srt") ? newPath + ".srt" : null;
     }
 }
