@@ -55,7 +55,28 @@ public abstract class TranslateSrt
 
         // 生成新文件路径
         var newFilePath = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(srtPath)}.{suffix}.srt");
-        await using var writer = new StreamWriter(newFilePath, append: true);
+        var existingEntries = new List<List<string>>();
+        if (File.Exists(newFilePath))
+        {
+            var oldLines = await File.ReadAllLinesAsync(newFilePath);
+            var temp = new List<string>();
+            foreach (var line in oldLines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    if (temp.Count <= 0) continue;
+                    existingEntries.Add(temp);
+                    temp = [];
+                }
+                else
+                {
+                    temp.Add(line);
+                }
+            }
+
+            if (temp.Count > 0)
+                existingEntries.Add(temp);
+        }
 
         // 定义参数转换
         var startIndex = Math.Max(0, startLine - 1);
@@ -69,11 +90,8 @@ public abstract class TranslateSrt
 
         // 定义最近记录
         var recentRecords = new List<string>();
-        for (var i = 0; i < entries.Count; i++)
+        for (var i = startIndex; i <= endIndex; i++)
         {
-            // 跳过不在范围的条目
-            if (i < startIndex || i > endIndex) continue;
-
             var entry = entries[i];
             // 忽略无效条目（至少包含序号、时间轴和内容）
             if (entry.Count < 3)
@@ -81,28 +99,65 @@ public abstract class TranslateSrt
                 continue;
             }
 
+            // 插入新的记录
+            recentRecords.Insert(0, "");
+            if (recentRecords.Count > 5)
+                recentRecords.RemoveAt(5);
+
             // 合并字幕内容
             var mergedContent = string.Join(" ", entry.Skip(2));
             var result = "";
             await foreach (var answerToken in chat.SendAsync(mergedContent))
+            {
                 result += answerToken;
-            // 构建显示文本（使用原始条目序号）
-            var displayText = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
+                // 更新最近记录
+                recentRecords[0] = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
+                // 更新文本框
+                await textBox.InvokeAsync(() =>
+                {
+                    textBox.Text = string.Join("\r\n", recentRecords);
+                });
+            
+            }
+
+            // 过滤掉 <think> 和 </think> 之间的内容
+            result = System.Text.RegularExpressions.Regex.Replace(result, @"<think>.*?</think>", "",
+                System.Text.RegularExpressions.RegexOptions.Singleline);
+            // 删除多余的回车符
+            result = result.Trim();
+
             // 更新最近记录
-            recentRecords.Insert(0, displayText);
-            if (recentRecords.Count > 5)
-                recentRecords.RemoveAt(5);
-
+            recentRecords[0] = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
             // 更新文本框
-            textBox.Text = string.Join("\r\n", recentRecords);
+            await textBox.InvokeAsync(() =>
+            {
+                textBox.Text = string.Join("\r\n", recentRecords);
+            });
 
-            // 写入文件
-            await writer.WriteLineAsync(entry[0]); // 序号
-            await writer.WriteLineAsync(entry[1]); // 时间轴
-            await writer.WriteLineAsync(result);   // 翻译内容
-            await writer.WriteLineAsync(mergedContent); // 原文
-            await writer.WriteLineAsync();         // 空行分隔
-            await writer.FlushAsync();
+            // 构造新的条目：序号、时间轴、译文、原文
+            var newEntry = new List<string>
+            {
+                entry[0], // 序号
+                entry[1], // 时间轴
+                result, // 翻译
+                mergedContent // 原文
+            };
+
+            if (i < existingEntries.Count)
+                existingEntries[i] = newEntry; // 覆盖
+            else
+                existingEntries.Insert(i, newEntry); // 插入
         }
+
+        // 4. 全量写回（覆盖模式）
+        await using var writer = new StreamWriter(newFilePath, append: false);
+        foreach (var e in existingEntries)
+        {
+            foreach (var line in e)
+                await writer.WriteLineAsync(line);
+            await writer.WriteLineAsync(); // 空行分隔
+        }
+
+        await writer.FlushAsync();
     }
 }

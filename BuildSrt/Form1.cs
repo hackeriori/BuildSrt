@@ -140,6 +140,8 @@ public partial class Form1 : Form
             return;
         }
 
+        if (checkBoxThink.Checked)
+            prompt += " /no_think";
         _ = TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt, textBoxResult, (int)numericUpDownStartLine.Value, (int)numericUpDownEndLine.Value);
     }
 
