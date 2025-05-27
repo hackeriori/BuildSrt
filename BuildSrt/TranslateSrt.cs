@@ -121,8 +121,10 @@ public abstract class TranslateSrt
             }
 
             // 过滤掉 <think> 和 </think> 之间的内容
-            result = System.Text.RegularExpressions.Regex.Replace(result, @"<think>.*?</think>", "",
-                System.Text.RegularExpressions.RegexOptions.Singleline);
+            result = System.Text.RegularExpressions.Regex.Replace(result, @"<think>[\s\S]*?</think>\s*", "",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            result = System.Text.RegularExpressions.Regex.Replace(result, @"^<think>\s*", "",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             // 删除多余的回车符
             result = result.Trim();
 
