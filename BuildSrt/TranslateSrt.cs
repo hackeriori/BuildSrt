@@ -1,9 +1,16 @@
+using System.Text.RegularExpressions;
 using OllamaSharp;
 
 namespace BuildSrt;
 
-public abstract class TranslateSrt
+public abstract partial class TranslateSrt
 {
+    [GeneratedRegex(@"<think>[\s\S]*?</think>\s*", RegexOptions.IgnoreCase, "zh-CN")]
+    private static partial Regex ThinkRegexType1();
+
+    [GeneratedRegex(@"^<think>\s*", RegexOptions.IgnoreCase, "zh-CN")]
+    private static partial Regex ThinkRegexType2();
+
     /// <summary>
     /// 翻译字幕
     /// </summary>
@@ -113,28 +120,19 @@ public abstract class TranslateSrt
                 // 更新最近记录
                 recentRecords[0] = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
                 // 更新文本框
-                await textBox.InvokeAsync(() =>
-                {
-                    textBox.Text = string.Join("\r\n", recentRecords);
-                });
-            
+                await textBox.InvokeAsync(() => { textBox.Text = string.Join("\r\n", recentRecords); });
             }
 
             // 过滤掉 <think> 和 </think> 之间的内容
-            result = System.Text.RegularExpressions.Regex.Replace(result, @"<think>[\s\S]*?</think>\s*", "",
-                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            result = System.Text.RegularExpressions.Regex.Replace(result, @"^<think>\s*", "",
-                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            result = ThinkRegexType1().Replace(result, "");
+            result = ThinkRegexType2().Replace(result, "");
             // 删除多余的回车符
             result = result.Trim();
 
             // 更新最近记录
             recentRecords[0] = $"{entry[0]}/{entries.Count}\r\n{result}\r\n{mergedContent}\r\n";
             // 更新文本框
-            await textBox.InvokeAsync(() =>
-            {
-                textBox.Text = string.Join("\r\n", recentRecords);
-            });
+            await textBox.InvokeAsync(() => { textBox.Text = string.Join("\r\n", recentRecords); });
 
             // 构造新的条目：序号、时间轴、译文、原文
             var newEntry = new List<string>
