@@ -19,10 +19,11 @@ public abstract partial class TranslateSrt
     /// <param name="model">ollama使用的模型名称</param>
     /// <param name="prompt">ollama的提示词</param>
     /// <param name="textBox">显示结果的文本框</param>
+    /// <param name="checkBoxExit">是否退出程序</param>
     /// <param name="startLine">起始处理的字幕条目序号</param>
     /// <param name="endLine">结束处理的字幕条目序号</param>
     public static async Task TranslateSrtAsync(string srtPath, string suffix, string model, string prompt,
-        TextBox textBox, int startLine = 1, int endLine = -1)
+        TextBox textBox, CheckBox checkBoxExit, int startLine = 1, int endLine = -1)
     {
         var directory = Path.GetDirectoryName(srtPath);
         if (string.IsNullOrEmpty(directory))
@@ -147,6 +148,9 @@ public abstract partial class TranslateSrt
                 existingEntries[i] = newEntry; // 覆盖
             else
                 existingEntries.Insert(i, newEntry); // 插入
+
+            if (checkBoxExit.Checked)
+                break;
         }
 
         // 4. 全量写回（覆盖模式）
@@ -159,5 +163,8 @@ public abstract partial class TranslateSrt
         }
 
         await writer.FlushAsync();
+        
+        recentRecords.Insert(0, "翻译完成\r\n");
+        textBox.Text = string.Join("\r\n", recentRecords);
     }
 }

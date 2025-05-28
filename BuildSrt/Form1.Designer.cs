@@ -72,6 +72,7 @@ partial class Form1
         label19 = new System.Windows.Forms.Label();
         label20 = new System.Windows.Forms.Label();
         checkBoxThink = new System.Windows.Forms.CheckBox();
+        checkBoxExit = new System.Windows.Forms.CheckBox();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartHour).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartSecond).BeginInit();
@@ -433,11 +434,21 @@ partial class Form1
         checkBoxThink.Text = "不思考";
         checkBoxThink.UseVisualStyleBackColor = true;
         // 
+        // checkBoxExit
+        // 
+        checkBoxExit.Location = new System.Drawing.Point(1007, 60);
+        checkBoxExit.Name = "checkBoxExit";
+        checkBoxExit.Size = new System.Drawing.Size(51, 32);
+        checkBoxExit.TabIndex = 45;
+        checkBoxExit.Text = "退出";
+        checkBoxExit.UseVisualStyleBackColor = true;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(1081, 470);
+        Controls.Add(checkBoxExit);
         Controls.Add(checkBoxThink);
         Controls.Add(label20);
         Controls.Add(label19);
@@ -493,6 +504,8 @@ partial class Form1
         ResumeLayout(false);
         PerformLayout();
     }
+
+    private System.Windows.Forms.CheckBox checkBoxExit;
 
     private System.Windows.Forms.CheckBox checkBoxThink;
 

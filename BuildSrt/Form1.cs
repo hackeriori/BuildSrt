@@ -142,7 +142,8 @@ public partial class Form1 : Form
 
         if (checkBoxThink.Checked)
             prompt += " /no_think";
-        _ = TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt, textBoxResult, (int)numericUpDownStartLine.Value, (int)numericUpDownEndLine.Value);
+        _ = TranslateSrt.TranslateSrtAsync(_srtPath, textBoxSuffix.Text, model, prompt, textBoxResult, checkBoxExit,
+            (int)numericUpDownStartLine.Value, (int)numericUpDownEndLine.Value);
     }
 
     private void buttonSelectSrt_Click(object sender, EventArgs e)
