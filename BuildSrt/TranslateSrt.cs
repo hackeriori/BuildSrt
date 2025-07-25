@@ -140,8 +140,8 @@ public abstract partial class TranslateSrt
             {
                 entry[0], // 序号
                 entry[1], // 时间轴
-                result, // 翻译
-                mergedContent // 原文
+                mergedContent, // 原文
+                result // 翻译
             };
 
             if (i < existingEntries.Count)
