@@ -73,6 +73,8 @@ partial class Form1
         label20 = new System.Windows.Forms.Label();
         checkBoxThink = new System.Windows.Forms.CheckBox();
         checkBoxExit = new System.Windows.Forms.CheckBox();
+        label21 = new System.Windows.Forms.Label();
+        buttonFixTime = new System.Windows.Forms.Button();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartHour).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numericUpDownStartSecond).BeginInit();
@@ -101,7 +103,7 @@ partial class Form1
         // 
         // buttonConvertToScFile
         // 
-        buttonConvertToScFile.Location = new System.Drawing.Point(32, 254);
+        buttonConvertToScFile.Location = new System.Drawing.Point(32, 178);
         buttonConvertToScFile.Name = "buttonConvertToScFile";
         buttonConvertToScFile.Size = new System.Drawing.Size(176, 36);
         buttonConvertToScFile.TabIndex = 1;
@@ -111,7 +113,7 @@ partial class Form1
         // 
         // label1
         // 
-        label1.Location = new System.Drawing.Point(32, 217);
+        label1.Location = new System.Drawing.Point(32, 141);
         label1.Name = "label1";
         label1.Size = new System.Drawing.Size(110, 24);
         label1.TabIndex = 2;
@@ -127,7 +129,7 @@ partial class Form1
         // 
         // buttonConvertToScDir
         // 
-        buttonConvertToScDir.Location = new System.Drawing.Point(32, 311);
+        buttonConvertToScDir.Location = new System.Drawing.Point(32, 235);
         buttonConvertToScDir.Name = "buttonConvertToScDir";
         buttonConvertToScDir.Size = new System.Drawing.Size(176, 36);
         buttonConvertToScDir.TabIndex = 4;
@@ -443,11 +445,31 @@ partial class Form1
         checkBoxExit.Text = "退出";
         checkBoxExit.UseVisualStyleBackColor = true;
         // 
+        // label21
+        // 
+        label21.Location = new System.Drawing.Point(32, 301);
+        label21.Name = "label21";
+        label21.Size = new System.Drawing.Size(110, 24);
+        label21.TabIndex = 46;
+        label21.Text = "修复时间码";
+        // 
+        // buttonFixTime
+        // 
+        buttonFixTime.Location = new System.Drawing.Point(32, 343);
+        buttonFixTime.Name = "buttonFixTime";
+        buttonFixTime.Size = new System.Drawing.Size(176, 36);
+        buttonFixTime.TabIndex = 47;
+        buttonFixTime.Text = "选择文件";
+        buttonFixTime.UseVisualStyleBackColor = true;
+        buttonFixTime.Click += buttonFixTime_Click;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(1081, 470);
+        Controls.Add(buttonFixTime);
+        Controls.Add(label21);
         Controls.Add(checkBoxExit);
         Controls.Add(checkBoxThink);
         Controls.Add(label20);
@@ -504,6 +526,9 @@ partial class Form1
         ResumeLayout(false);
         PerformLayout();
     }
+
+    private System.Windows.Forms.Label label21;
+    private System.Windows.Forms.Button buttonFixTime;
 
     private System.Windows.Forms.CheckBox checkBoxExit;
 

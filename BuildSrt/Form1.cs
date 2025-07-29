@@ -153,4 +153,13 @@ public partial class Form1 : Form
         if (openFileDialog.ShowDialog() != DialogResult.OK) return;
         _srtPath = openFileDialog.FileName;
     }
+
+    private void buttonFixTime_Click(object sender, EventArgs e)
+    {
+        openFileDialog.Filter = "字幕文件|*.srt";
+        openFileDialog.Title = "选择字幕文件";
+        if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+        FixTime.FixSrtTime(openFileDialog.FileName);
+        MessageBox.Show("修复完成");
+    }
 }
